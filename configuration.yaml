@@ -1,0 +1,64 @@
+
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+homeassistant:
+  # C for Celcius, F for Fahrenheit
+  unit_system: metric
+  time_zone: Europe/London
+  # Location required to calculate the time the sun rises and sets
+  latitude: 53.153431
+  longitude: -6.076961
+
+nest:
+  client_id: 827507899923-dvknkp9me0kdcrhd4oic3ibu87jj09sj.apps.googleusercontent.com
+  client_secret: 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
+  # "Project ID" in the Device Access Console (not Cloud Project ID!)
+  project_id: ca090cd3-87a9-4868-9b9e-8caec3b37889
+
+sensor:
+  - platform: mqtt
+    name: "Grid Import Energy"
+    unique_id: sensor.grid_import_energy
+    state_topic: "emon/emonpi/import_kwh"
+    device_class: power
+    state_class: total_increasing
+    unit_of_measurement: "kWh"
+
+  - platform: mqtt
+    name: "Grid Export Energy"
+    unique_id: sensor.grid_export_energy
+    state_topic: "emon/emonpi/export_kwh"
+    device_class: power
+    state_class: total_increasing
+    unit_of_measurement: "kWh"
+
+  - platform: mqtt
+    name: "Solar PV Power Generated"
+    unique_id: sensor.solar_pv_generated
+    state_topic: "emon/emonpi/solarpv"
+    device_class: power
+    state_class: total_increasing
+    unit_of_measurement: "kWh"
+
+  - platform: mqtt
+    name: "House Consumption Power"
+    unique_id: sensor.house_consumption_power
+    state_topic: "emon/emonpi/consumption"
+    device_class: power
+    state_class: total_increasing
+    unit_of_measurement: "kWh"
+
+
+
+
+# device_tracker:
+#   - platform: bluetooth_tracker
